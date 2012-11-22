@@ -1,0 +1,7 @@
+# File managed by puppet
+#---
+# Syslog-ng command line options
+# See syslog-ng(8) for more details
+#---
+SYSLOGNG_PID="/var/run/syslog-ng.pid"
+SYSLOGNG_OPTIONS="-p $SYSLOGNG_PID"
