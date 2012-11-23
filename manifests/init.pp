@@ -10,7 +10,7 @@
 #
 # Sample Usage:
 #
-class syslogng($ensure=present,$loghost=undef,$logdir=undef) {
+class syslogng($ensure=present) {
 
   case $::operatingsystem {
       redhat, centos: { include syslogng::instance::redhat }
