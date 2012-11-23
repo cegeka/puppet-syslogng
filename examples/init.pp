@@ -1,7 +1,13 @@
 class { 'syslogng':
   ensure  => present,
-  loghost => 'dummy.log-destionation.tld',
-  logdir  => '/data/logs/',
+}
+
+syslogng::loghost { 'loghost':
+  loghost => 'dummy.log-destionation.tld'
+}
+
+syslogng::logdir { 'logdir':
+  logdir => '/var/log'
 }
 
 syslogng::logdestination { 's_pipe_sunappserver_server':
