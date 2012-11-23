@@ -1,0 +1,22 @@
+# File managed by puppet
+@version:3.2
+# syslog-ng configuration file.
+#
+options {
+        create_dirs(yes);
+        dir_perm(0755);
+        log_fetch_limit(100);
+        log_iw_size(100);
+        flush_lines(100);
+        log_fifo_size(1000);
+};
+
+<%if @loghost%>@define loghost "<%= scope.lookupvar('syslogng::params::real_loghost') %>"<%end%>
+@define logdir "<%= scope.lookupvar('syslogng::params::real_logdir') %>"
+
+include "includes";
+include "includes/log";
+include "includes/source";
+include "includes/filter";
+include "includes/parser";
+include "includes/destination";

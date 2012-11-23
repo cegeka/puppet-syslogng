@@ -10,7 +10,11 @@
 #
 # Sample Usage:
 #
-class syslogng {
+class syslogng($ensure=present,$loghost=undef,$logdir=undef) {
 
+  case $::operatingsystem {
+      redhat, centos: { include syslogng::instance::redhat }
+      default: { fail("${::operatingsystem} is not yet supported") }
+  }
 
 }

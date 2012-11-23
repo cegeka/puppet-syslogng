@@ -1,0 +1,4 @@
+#File managed by puppet
+<%= destinationtype %> <% if name != 'log' %><%= name %><%end%> {
+<% if @options %><% options.each do |option| %>  <%= option %>
+<%end%><%end%>};
