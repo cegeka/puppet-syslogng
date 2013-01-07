@@ -1,7 +1,16 @@
-define syslogng::logdestination($ensure=present,$destinationtype=undef,$options=undef) {
+define syslogng::logdestination (
+                                  $ensure  = 'present',
+                                  $type    = undef,
+                                  $options = undef
+                                )
+{
+  include syslogng::params
 
-  file { "${syslogng::params::syslogngcfg}/includes/${destinationtype}/${name}.inc":
-    ensure  => $ensure,
+  file { "${type}/${title}.inc":
+    ensure  => $ensure
+    owner   => $syslogng::params::user
+    group   => $syslogng::params::group
+    path    => "${syslogng::params::conf_dir}/includes/${type}/${title}.inc",
     content => template('syslogng/includes/include.erb'),
   }
 
