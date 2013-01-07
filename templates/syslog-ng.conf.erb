@@ -11,12 +11,14 @@ options {
         log_fifo_size(1000);
 };
 
-<%if @loghost%>@define loghost "<%= scope.lookupvar('syslogng::params::real_loghost') %>"<%end%>
-@define logdir "<%= scope.lookupvar('syslogng::params::real_logdir') %>"
+<% if @loghost -%>
+@define loghost "<%= @loghost %>"
+<% end -%>
+@define logdir "<%= @logdir %>"
 
 include "includes";
-include "includes/log";
-include "includes/source";
-include "includes/filter";
-include "includes/parser";
-include "includes/destination";
+include "includes/logs";
+include "includes/sources";
+include "includes/filters";
+include "includes/parsers";
+include "includes/destinations";

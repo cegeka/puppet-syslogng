@@ -1,12 +1,18 @@
 class syslogng::params {
 
-  $real_ensure = $syslogng::ensure
-  $real_ensure_service = $syslogng::ensure ? {
-    absent  => 'stopped',
-    default => 'running',
+  case $::osfamily {
+    'RedHat': {
+      $user              = 'root'
+      $group             = 'root'
+      $package           = ['syslog-ng', 'syslog-ng-libdbi']
+      $service           = 'syslog-ng'
+      $service_hasstatus = true
+      $conf_dir          = '/etc/syslog-ng'
+      $conf_file         = 'syslog-ng.conf'
+      $sysconf_dir       = '/etc/sysconfig'
+    }
+    default: {
+      fail("Class[syslogng::params]: osfamily ${::osfamily} is not supported")
+    }
   }
-
-  $syslogngcfg = '/etc/syslog-ng'
-  $real_loghost = $syslogng::loghost
-
 }

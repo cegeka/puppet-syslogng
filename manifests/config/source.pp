@@ -1,0 +1,3 @@
+define syslogng::config::source() {
+
+}
