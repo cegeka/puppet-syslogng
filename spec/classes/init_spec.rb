@@ -12,14 +12,6 @@ describe 'syslogng' do
       )}
     end
 
-    context 'with logdir => baz' do
-      let (:params) { { :logdir => 'baz' } }
-
-      it { expect { subject }.to raise_error(
-        Puppet::Error, /parameter logdir must be an absolute path/
-      )}
-    end
-
     context 'with service_state => foo' do
       let (:params) { { :service_state => 'foo' } }
 
@@ -49,14 +41,10 @@ describe 'syslogng' do
       it { should include_class('syslogng::params') }
 
       it { should contain_class('syslogng').with_version('present') }
-      it { should contain_class('syslogng').with_logdir('/var/log') }
-      it { should contain_class('syslogng').without_loghost }
       it { should contain_class('syslogng').with_service_state('running') }
       it { should contain_class('syslogng').with_enable(true) }
 
       it { should contain_class('syslogng::package').with_version('present') }
-      it { should contain_class('syslogng::config').with_logdir('/var/log') }
-      it { should contain_class('syslogng::config').without_loghost }
       it { should contain_class('syslogng::service').with_ensure('running') }
       it { should contain_class('syslogng::service').with_enable(true) }
 
