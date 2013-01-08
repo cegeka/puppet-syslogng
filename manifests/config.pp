@@ -1,8 +1,5 @@
-class syslogng::config (
-                        $logdir  = undef,
-                        $loghost = undef
-                      )
-{
+class syslogng::config {
+
   include syslogng::params
 
   File {
@@ -28,6 +25,12 @@ class syslogng::config (
     path   => "${syslogng::params::conf_dir}/includes",
     mode   => '0755'
   }
+  file { 'syslog-ng/define' :
+    ensure => directory,
+    path   => "${syslogng::params::conf_dir}/includes/define",
+    mode   => '0755'
+  }
+
 
   file { 'syslog-ng/source' :
     ensure => directory,
