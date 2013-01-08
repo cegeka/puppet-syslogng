@@ -11,12 +11,8 @@ options {
         log_fifo_size(1000);
 };
 
-<% if @loghost -%>
-@define loghost "<%= @loghost %>"
-<% end -%>
-@define logdir "<%= @logdir %>"
-
 include "includes";
+include "includes/define";
 include "includes/log";
 include "includes/source";
 include "includes/filter";

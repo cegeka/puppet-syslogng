@@ -13,6 +13,13 @@ describe 'syslogng::config' do
   it { should contain_file('syslog-ng/config').with_group('root') }
   it { should contain_file('syslog-ng/config').with_mode('0644') }
   it { should contain_file('syslog-ng/config').with_path('/etc/syslog-ng/syslog-ng.conf') }
+  it { should contain_file('syslog-ng/config').with_content(/^include "includes";/) }
+  it { should contain_file('syslog-ng/config').with_content(/^include "includes\/define";/) }
+  it { should contain_file('syslog-ng/config').with_content(/^include "includes\/log";/) }
+  it { should contain_file('syslog-ng/config').with_content(/^include "includes\/source";/) }
+  it { should contain_file('syslog-ng/config').with_content(/^include "includes\/filter";/) }
+  it { should contain_file('syslog-ng/config').with_content(/^include "includes\/parser";/) }
+  it { should contain_file('syslog-ng/config').with_content(/^include "includes\/destination";/) }
 
   it { should contain_file('syslog-ng/includes').with_ensure('directory') }
   it { should contain_file('syslog-ng/includes').with_owner('root') }
@@ -25,6 +32,12 @@ describe 'syslogng::config' do
   it { should contain_file('syslog-ng/serviceconf').with_group('root') }
   it { should contain_file('syslog-ng/serviceconf').with_mode('0644') }
   it { should contain_file('syslog-ng/serviceconf').with_path('/etc/sysconfig/syslog-ng') }
+
+  it { should contain_file('syslog-ng/define').with_ensure('directory') }
+  it { should contain_file('syslog-ng/define').with_owner('root') }
+  it { should contain_file('syslog-ng/define').with_group('root') }
+  it { should contain_file('syslog-ng/define').with_mode('0755') }
+  it { should contain_file('syslog-ng/define').with_path('/etc/syslog-ng/includes/define') }
 
   it { should contain_file('syslog-ng/source').with_ensure('directory') }
   it { should contain_file('syslog-ng/source').with_owner('root') }
@@ -55,19 +68,4 @@ describe 'syslogng::config' do
   it { should contain_file('syslog-ng/log').with_group('root') }
   it { should contain_file('syslog-ng/log').with_mode('0755') }
   it { should contain_file('syslog-ng/log').with_path('/etc/syslog-ng/includes/log') }
-
-  context 'with logdir => /var/log' do
-    let (:params) { { :logdir => '/var/log' } }
-
-    it { should_not contain_file('syslog-ng/config').with_content(/^@define loghost/) }
-    it { should contain_file('syslog-ng/config').with_content(/^@define logdir "\/var\/log"/) }
-  end
-
-  context 'with loghost => foo.example.com and logdir => /data/logs' do
-    let (:params) { { :loghost => 'foo.example.com', :logdir => '/data/logs' } }
-
-    it { should contain_file('syslog-ng/config').with_content(/^@define loghost "foo.example.com"/) }
-    it { should contain_file('syslog-ng/config').with_content(/^@define logdir "\/data\/logs"/) }
-  end
-
 end

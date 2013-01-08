@@ -12,8 +12,6 @@
 #
 class syslogng (
                 $version       = 'present',
-                $logdir        = '/var/log',
-                $loghost       = undef,
                 $enable        = true,
                 $service_state = 'running'
               )
@@ -21,11 +19,6 @@ class syslogng (
   case $version {
     'present', 'latest': { $version_real = $version }
     default:             { fail('Class[syslogng]: parameter version must be present or latest') }
-  }
-
-  case $logdir {
-    /^\/.*/: { $logdir_real = $logdir }
-    default: { fail('Class[syslogng]: parameter logdir must be an absolute path') }
   }
 
   case $enable {
@@ -45,10 +38,7 @@ class syslogng (
       class { 'syslogng::package':
         version => $version_real
       }
-      class { 'syslogng::config':
-        logdir  => $logdir_real,
-        loghost => $loghost
-      }
+      class { 'syslogng::config': }
       class { 'syslogng::service':
         ensure => $service_state_real,
         enable => $enable_real
