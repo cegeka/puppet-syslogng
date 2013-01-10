@@ -5,7 +5,7 @@ class syslogng::package (
   include syslogng::params
 
   case $version {
-    'present', 'absent': { $version_real = $version }
+    'present', 'latest': { $version_real = $version }
     default:             { fail('Class[syslogng::package]: parameter version must be present or latest') }
   }
 
