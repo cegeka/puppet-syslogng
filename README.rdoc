@@ -3,4 +3,3 @@
 {<img src='https://codex.cegeka.be/jenkins/job/puppet-syslogng/badge/icon' />}[https://codex.cegeka.be/jenkins/job/puppet-syslogng/]
 
 This is the syslogng module.
-
