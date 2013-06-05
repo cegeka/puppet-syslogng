@@ -1,4 +1,4 @@
-require File.expand_path('../../env', __FILE__)
+require File.join(MODULE_ROOT_DIR, 'tasks/env')
 
 desc "Check puppet module code style."
 task :style do

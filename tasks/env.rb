@@ -8,9 +8,6 @@
 $stdout.sync = true
 $stderr.sync = true
 
-# Module root directory
-MODULE_ROOT_DIR = Rake.original_dir
-
 # Basedir for all output.
 RESULTS = ENV['results'] || 'target'
 
