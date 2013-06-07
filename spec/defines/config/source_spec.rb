@@ -63,7 +63,7 @@ describe 'syslogng::config::source' do
         )}
       end
 
-      context 'with :source => /var/run/sunappserver_server.pipe, type => pipe and options => [flags(no-parse), optional(yes)]' do
+      context 'with source => /var/run/sunappserver_server.pipe, type => pipe and options => [flags(no-parse), optional(yes)]' do
         let (:params) { {
           :source  => '/var/run/sunappserver_server.pipe',
           :type    => 'pipe',
