@@ -3,47 +3,26 @@ class { 'syslogng':
 }
 
 syslogng::config::define { 'loghost':
-  value => 'dummy.log-destionation.tld'
+  value => 'dummy.log-destination.tld',
 }
 
-syslogng::config::define { 'logdir':
-  value => '/var/log'
+syslogng::config::source { 's_pipe_sunappserver_server':
+  type    => 'pipe',
+  source  => '/var/run/sunappserver_server.pipe',
+  options => 'flags(no-parse)',
 }
 
-syslogng::logdestination { 's_pipe_sunappserver_server':
-  ensure          => present,
-  destinationtype => 'source',
-  options         => [
-    'pipe("/var/run/sunappserver_server.pipe"',
-    'flags(no-parse));',
-  ]
-}
-syslogng::logpermission { '/var/run/sunappserver_server.pipe':
-  group => 'tomcat',
-  mode  => '0664',
+syslogng::config::template { 'sunappserver_server':
+  expression => 'sunappserver_server ${MSG}\n',
 }
 
-syslogng::logdestination { 'sunappserver_server':
-  ensure          => present,
-  destinationtype => 'template',
-  options         => [
-    "template(\"sunappserver_server ${MSG}\n\");",
-  ]
+syslogng::config::destination { 'tcp_sunappserver_server':
+  logtype     => 'tcp',
+  destination => '`loghost`',
+  options     => 'template(sunappserver_server)',
 }
 
-syslogng::logdestination { 'log_sunappserver_server':
-  ensure          => present,
-  destinationtype => 'destination',
-  options         => [
-    "file(\"`logdir`/sunappserver/server_${YEAR}-${MONTH}-${DAY}.log\");",
-  ]
-}
-
-syslogng::logdestination { 'log':
-  ensure          => present,
-  destinationtype => 'log',
-  options         => [
-    'source(s_pipe_sunappserver_server);',
-    'destination(log_sunappserver_server);',
-  ]
+syslogng::config::log { 'sunappserver_server':
+  source      => 's_pipe_sunappserver_server',
+  destination => 'tcp_sunappserver_server',
 }

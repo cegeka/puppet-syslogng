@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'rake'
 
-task_dir = File.expand_path("../tasks", __FILE__)
+MODULE_ROOT_DIR = File.expand_path('..', __FILE__)
 
-FileList["#{task_dir}/**/*.rake"].each { |fn| load fn }
+FileList["#{MODULE_ROOT_DIR}/tasks/**/*.rake"].each { |fn| load fn }
 
 desc "Default task prints the available targets."
 task :default do
