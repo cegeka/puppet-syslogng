@@ -1,0 +1,1 @@
+destination <%= @title %> { <%= @logtype %>("<%= @destination %>"<% unless @options.empty? %> <%= Array(@options).join(' ') %><% end %>); };
