@@ -3,22 +3,26 @@ class { 'syslogng':
 }
 
 syslogng::config::define { 'loghost':
-  value => 'dummy.log-destionation.tld'
+  value => 'dummy.log-destination.tld',
 }
 
-syslogng::config::define { 'logdir':
-  value => '/var/log'
+syslogng::config::source { 's_pipe_sunappserver_server':
+  type    => 'pipe',
+  source  => '/var/run/sunappserver_server.pipe',
+  options => 'flags(no-parse)',
 }
 
-syslogng::config::destination { 'httpd_access_log':
-  logtype => 'file',
-  destination => '/var/log/httpd_access.log',
+syslogng::config::template { 'sunappserver_server':
+  expression => 'sunappserver_server ${MSG}\n',
 }
 
-syslogng::config::destination { 'script_destination':
-  logtype     => 'program',
-  destination => '/bin/script',
-  options     => ['template("<$PRI>$DATE $MSG\n")', 'flags(no_multi_line)'],
+syslogng::config::destination { 'tcp_sunappserver_server':
+  logtype     => 'tcp',
+  destination => '`loghost`',
+  options     => 'template(sunappserver_server)',
 }
 
-
+syslogng::config::log { 'sunappserver_server':
+  source      => 's_pipe_sunappserver_server',
+  destination => 'tcp_sunappserver_server',
+}
