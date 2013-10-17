@@ -1,1 +1,1 @@
-log { source(<%= @source %>); <% if @filter -%>filter(<%= @filter %>); <% end -%>destination(<%= @destination %>); <% unless @flags.empty? -%>flags(<%= Array(@flags).join(', ') %>); <% end -%>};
+log { source(<%= @source %>); <% if @parser -%>parser(<%= @parser %>); <% end -%><% if @filter -%>filter(<%= @filter %>); <% end -%>destination(<%= @destination %>); <% unless @flags.empty? -%>flags(<%= Array(@flags).join(', ') %>); <% end -%>};
