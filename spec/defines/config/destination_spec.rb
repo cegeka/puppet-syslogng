@@ -59,7 +59,7 @@ describe 'syslogng::config::destination' do
           :mode    => '0644',
           :notify  => 'Class[Syslogng::Service]',
           :path    => '/etc/syslog-ng/includes/destination/httpd_access_log.inc',
-          :content => /^destination httpd_access_log \{ file\("\/var\/log\/httpd_access\.log"\); \};$/
+          :content => /^destination httpd_access_log \{ file\(\/var\/log\/httpd_access\.log\); \};$/
         )}
       end
 

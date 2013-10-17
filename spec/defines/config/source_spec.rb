@@ -59,13 +59,13 @@ describe 'syslogng::config::source' do
           :mode    => '0644',
           :notify  => 'Class[Syslogng::Service]',
           :path    => '/etc/syslog-ng/includes/source/sunappserver_server_log.inc',
-          :content => /^source sunappserver_server_log \{ file\("\/var\/log\/sunappserver\.log"\); \};$/
+          :content => /^source sunappserver_server_log \{ file\(\/var\/log\/sunappserver\.log\); \};$/
         )}
       end
 
       context 'with source => /var/run/sunappserver_server.pipe, type => pipe and options => [flags(no-parse), optional(yes)]' do
         let (:params) { {
-          :source  => '/var/run/sunappserver_server.pipe',
+          :source  => '"/var/run/sunappserver_server.pipe"',
           :type    => 'pipe',
           :options => [ 'flags(no-parse)', 'optional(yes)']
         } }
