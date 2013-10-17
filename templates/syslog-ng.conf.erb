@@ -3,14 +3,15 @@
 # syslog-ng configuration file.
 #
 options {
-        create_dirs(yes);
-        dir_perm(0755);
+  create_dirs(yes);
+	dir_perm(0755);
 };
 
 include "includes";
 include "includes/define";
-include "includes/log";
 include "includes/source";
-include "includes/filter";
 include "includes/parser";
+include "includes/filter";
+include "includes/template";
 include "includes/destination";
+include "includes/log";
