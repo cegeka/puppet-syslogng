@@ -25,13 +25,13 @@ describe 'syslogng::config::define' do
         let (:params) { { } }
 
         it { should contain_syslogng__config__define('foo').with_value('') }
-        it { should contain_file('syslogng/define/foo.inc').with_content('@define foo ""') }
+        it { should contain_file('syslogng/define/foo.inc').with_content(/@define foo ""/) }
       end
 
       context 'with value => test' do
         let (:params) { { :value => 'test' } }
 
-        it { should contain_file('syslogng/define/foo.inc').with_content('@define foo "test"') }
+        it { should contain_file('syslogng/define/foo.inc').with_content(/@define foo "test"/) }
       end
     end
   end

@@ -2,6 +2,7 @@ define syslogng::config::log (
   $ensure      = 'present',
   $source      = undef,
   $destination = undef,
+  $parser      = undef,
   $filter      = undef,
   $flags       = []
 ) {
@@ -33,6 +34,9 @@ define syslogng::config::log (
 
         if $filter {
           Syslogng::Config::Filter[$filter] -> Syslogng::Config::Log[$title]
+        }
+        if $parser {
+          Syslogng::Config::Parser[$parser] -> Syslogng::Config::Log[$title]
         }
       }
       else {

@@ -10,6 +10,6 @@ define syslogng::config::define (
     group   => $syslogng::params::group,
     mode    => '0644',
     path    => "${syslogng::params::conf_dir}/includes/define/${title}.inc",
-    content => "@define ${title} \"${value}\""
+    content => "@define ${title} \"${value}\"\n"
   }
 }

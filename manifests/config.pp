@@ -25,12 +25,12 @@ class syslogng::config {
     path   => "${syslogng::params::conf_dir}/includes",
     mode   => '0755'
   }
+
   file { 'syslog-ng/define' :
     ensure => directory,
     path   => "${syslogng::params::conf_dir}/includes/define",
     mode   => '0755'
   }
-
 
   file { 'syslog-ng/source' :
     ensure => directory,
@@ -38,9 +38,9 @@ class syslogng::config {
     mode   => '0755'
   }
 
-  file { 'syslog-ng/destination' :
+  file { 'syslog-ng/parser' :
     ensure => directory,
-    path   => "${syslogng::params::conf_dir}/includes/destination",
+    path   => "${syslogng::params::conf_dir}/includes/parser",
     mode   => '0755'
   }
 
@@ -50,9 +50,15 @@ class syslogng::config {
     mode   => '0755'
   }
 
-  file { 'syslog-ng/parser' :
+  file { 'syslog-ng/template' :
     ensure => directory,
-    path   => "${syslogng::params::conf_dir}/includes/parser",
+    path   => "${syslogng::params::conf_dir}/includes/template",
+    mode   => '0755'
+  }
+
+  file { 'syslog-ng/destination' :
+    ensure => directory,
+    path   => "${syslogng::params::conf_dir}/includes/destination",
     mode   => '0755'
   }
 
