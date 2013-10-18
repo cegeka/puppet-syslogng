@@ -13,7 +13,8 @@
 class syslogng (
                 $version       = 'present',
                 $enable        = true,
-                $service_state = 'running'
+                $service_state = 'running',
+                $options       = []
               )
 {
   case $version {
@@ -38,7 +39,9 @@ class syslogng (
       class { 'syslogng::package':
         version => $version_real
       }
-      class { 'syslogng::config': }
+      class { 'syslogng::config':
+        options => $options
+      }
       class { 'syslogng::service':
         ensure => $service_state_real,
         enable => $enable_real

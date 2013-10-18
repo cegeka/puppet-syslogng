@@ -1,4 +1,4 @@
-class syslogng::config {
+class syslogng::config ($options = []) {
 
   include syslogng::params
 
