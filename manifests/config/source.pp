@@ -16,6 +16,13 @@ define syslogng::config::source (
     }
     'present': {
       if $source {
+        if is_absolute_path($source) {
+          $_source = "\"${source}\""
+        }
+        else {
+          $_source = $source
+        }
+
         include syslogng::params
 
         file { "source_${title}":
