@@ -1,8 +1,6 @@
 define syslogng::config::source (
                                   $ensure = 'present',
-                                  $type   = 'file',
-                                  $source = undef,
-                                  $options = []
+                                  $configuration = undef
                                 )
 {
   case $ensure {
@@ -15,14 +13,7 @@ define syslogng::config::source (
       }
     }
     'present': {
-      if $source {
-        if is_absolute_path($source) {
-          $_source = "\"${source}\""
-        }
-        else {
-          $_source = $source
-        }
-
+      if $configuration {
         include syslogng::params
 
         file { "source_${title}":
@@ -34,10 +25,9 @@ define syslogng::config::source (
           notify  => Class['syslogng::service'],
           content => template('syslogng/config/source.erb')
         }
-
       }
       else {
-        fail("Syslogng::Config::Source['${title}']: required parameter source not specified")
+        fail("Syslogng::Config::Source['${title}']: required parameter configuration not specified")
       }
     }
     default: {
