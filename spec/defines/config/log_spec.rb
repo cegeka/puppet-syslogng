@@ -58,14 +58,14 @@ describe 'syslogng::config::log' do
 
       context 'with ensure => present' do
         let (:pre_condition) { [
-          "syslogng::config::source { network: source => 'tcp' }",
-          "syslogng::config::destination { httpd_access_log: destination => '/var/log/httpd_access_log' }",
+          "syslogng::config::source { network: configuration => 'tcp();' }",
+          "syslogng::config::destination { httpd_access_log: configuration => 'file(\"/var/log/httpd_access_log\");' }",
         ] }
 
         context 'with required parameters' do
           let (:params) { {
             :source      => 'network',
-            :destination => 'httpd_access_log',
+            :destination => 'httpd_access_log'
           } }
 
           it { should contain_syslogng__config__log('httpd_access_log').with(
@@ -139,9 +139,9 @@ describe 'syslogng::config::log' do
           } }
 
           let (:pre_condition) { [
-            "syslogng::config::source { network: source => 'tcp' }",
-            'syslogng::config::filter { level: expression => \'$LEVEL_NUM > 5\' }',
-            "syslogng::config::destination { httpd_access_log: destination => '/var/log/httpd_access_log' }",
+            "syslogng::config::source { network: configuration => 'tcp();' }",
+            "syslogng::config::filter { level: expression => '\$LEVEL_NUM > 5'; }",
+            "syslogng::config::destination { httpd_access_log: configuration => 'file(\"/var/log/httpd_access_log\");' }",
           ] }
 
           it { should include_class('syslogng::params') }
