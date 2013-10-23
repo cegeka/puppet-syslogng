@@ -24,7 +24,7 @@ describe 'syslogng::config::source' do
           let (:params) { { } }
 
           it { expect { subject }.to raise_error(
-            Puppet::Error, /required parameter source not specified/
+            Puppet::Error, /required parameter configuration not specified/
           )}
         end
       end
@@ -41,15 +41,13 @@ describe 'syslogng::config::source' do
       end
 
       context 'with default parameters' do
-        let (:params) { { :source => '/var/log/sunappserver.log' } }
+        let (:params) { { :configuration => 'file("/var/log/sunappserver.log");' } }
 
         it { should include_class('syslogng::params') }
 
         it { should contain_syslogng__config__source('sunappserver_server_log').with(
-          :type    => 'file',
-          :source  => '/var/log/sunappserver.log',
-          :ensure  => 'present',
-          :options => []
+          :configuration => 'file("/var/log/sunappserver.log");',
+          :ensure        => 'present'
         )}
 
         it { should contain_file('source_sunappserver_server_log').with(
@@ -59,15 +57,13 @@ describe 'syslogng::config::source' do
           :mode    => '0644',
           :notify  => 'Class[Syslogng::Service]',
           :path    => '/etc/syslog-ng/includes/source/sunappserver_server_log.inc',
-          :content => /^source sunappserver_server_log \{ file\(\/var\/log\/sunappserver\.log\); \};$/
+          :content => /^source sunappserver_server_log \{ file\("\/var\/log\/sunappserver\.log"\); \};$/
         )}
       end
 
-      context 'with source => /var/run/sunappserver_server.pipe, type => pipe and options => [flags(no-parse), optional(yes)]' do
+      context 'with configuration => pipe("/var/run/sunappserver_server.pipe" flags(no-parse) optional(yes)' do
         let (:params) { {
-          :source  => '"/var/run/sunappserver_server.pipe"',
-          :type    => 'pipe',
-          :options => [ 'flags(no-parse)', 'optional(yes)']
+          :configuration => 'pipe("/var/run/sunappserver_server.pipe" flags(no-parse) optional(yes));'
         } }
 
         it { should include_class('syslogng::params') }

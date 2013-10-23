@@ -24,7 +24,7 @@ describe 'syslogng::config::destination' do
           let (:params) { { } }
 
           it { expect { subject }.to raise_error(
-            Puppet::Error, /required parameter destination not specified/
+            Puppet::Error, /required parameter configuration not specified/
           )}
         end
       end
@@ -41,15 +41,13 @@ describe 'syslogng::config::destination' do
       end
 
       context 'with default parameters' do
-        let (:params) { { :destination => '/var/log/httpd_access.log' } }
+        let (:params) { { :configuration => 'file("/var/log/httpd_access.log");' } }
 
         it { should include_class('syslogng::params') }
 
         it { should contain_syslogng__config__destination('httpd_access_log').with(
-          :logtype     => 'file',
-          :destination => '/var/log/httpd_access.log',
-          :ensure      => 'present',
-          :options     => []
+          :configuration => 'file("/var/log/httpd_access.log");',
+          :ensure        => 'present'
         )}
 
         it { should contain_file('destination_httpd_access_log').with(
@@ -59,15 +57,13 @@ describe 'syslogng::config::destination' do
           :mode    => '0644',
           :notify  => 'Class[Syslogng::Service]',
           :path    => '/etc/syslog-ng/includes/destination/httpd_access_log.inc',
-          :content => /^destination httpd_access_log \{ file\(\/var\/log\/httpd_access\.log\); \};$/
+          :content => /^destination httpd_access_log \{ file\("\/var\/log\/httpd_access\.log"\); \};$/
         )}
       end
 
-      context 'with :destination => /bin/script, type => program and options => template("<$PRI>$DATE $MSG\n") flags(no_multi_line)' do
+      context 'with configuration => program("/bin/script" template("<$PRI>$DATE $MSG\n") flags(no_multi_line));' do
         let (:params) { {
-          :destination => '/bin/script',
-          :logtype     => 'program',
-          :options     => ['template("<$PRI>$DATE $MSG\n")', 'flags(no_multi_line)']
+          :configuration => 'program("/bin/script template("<$PRI>$DATE $MSG\n") flags(no_multi_line));'
         } }
 
         it { should include_class('syslogng::params') }
