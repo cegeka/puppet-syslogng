@@ -6,23 +6,19 @@ syslogng::config::define { 'loghost':
   value => 'dummy.log-destination.tld',
 }
 
-syslogng::config::source { 's_pipe_sunappserver_server':
-  type    => 'pipe',
-  source  => '/var/run/sunappserver_server.pipe',
-  options => 'flags(no-parse)',
+syslogng::config::source { 'pipe_sunappserver_server':
+  configuration => 'pipe("/var/run/sunappserver_server.pipe" flags(no-parse));'
 }
 
 syslogng::config::template { 'sunappserver_server':
   expression => 'sunappserver_server ${MSG}\n',
 }
 
-syslogng::config::destination { 'tcp_sunappserver_server':
-  logtype     => 'tcp',
-  destination => '`loghost`',
-  options     => 'template(sunappserver_server)',
+syslogng::config::destination { 'd_amqp_syslog':
+  configuration => 'amqp(vhost("/") host("127.0.0.1") exchange("syslog"));'
 }
 
 syslogng::config::log { 'sunappserver_server':
-  source      => 's_pipe_sunappserver_server',
+  source      => 'pipe_sunappserver_server',
   destination => 'tcp_sunappserver_server',
 }
