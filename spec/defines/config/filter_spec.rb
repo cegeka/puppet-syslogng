@@ -41,11 +41,11 @@ describe "syslogng::config::filter" do
       end
 
       context 'with default parameters' do
-        let (:params) { { :expression => 'host(example1)' } }
+        let (:params) { { :expression => 'host(example1);' } }
 
         it { should contain_syslogng__config__filter('sunappserver_gc').with(
           :ensure     => 'present',
-          :expression => 'host(example1)'
+          :expression => 'host(example1);'
         )}
 
         it { should include_class('syslogng::params') }
@@ -62,7 +62,7 @@ describe "syslogng::config::filter" do
       end
 
       context 'with expression => "$HOST$PID" eq "$HOST"' do
-        let (:params) { { :expression => '"$HOST$PID" eq "$HOST"' } }
+        let (:params) { { :expression => '"$HOST$PID" eq "$HOST";' } }
 
         it { should include_class('syslogng::params') }
 
