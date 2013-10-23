@@ -1,8 +1,6 @@
 define syslogng::config::destination (
-                                  $ensure      = 'present',
-                                  $logtype     = 'file',
-                                  $destination = undef,
-                                  $options     = []
+                                  $ensure        = 'present',
+                                  $configuration = undef
                                 )
 {
   case $ensure {
@@ -15,7 +13,7 @@ define syslogng::config::destination (
       }
     }
     'present': {
-      if $destination {
+      if $configuration {
         include syslogng::params
 
         file { "destination_${title}":
@@ -30,7 +28,7 @@ define syslogng::config::destination (
 
       }
       else {
-        fail("Syslogng::Config::Destination['${title}']: required parameter destination not specified")
+        fail("Syslogng::Config::Destination['${title}']: required parameter configuration not specified")
       }
     }
     default: {
