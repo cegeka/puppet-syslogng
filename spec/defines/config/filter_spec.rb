@@ -32,7 +32,7 @@ describe "syslogng::config::filter" do
       context 'with ensure => absent' do
         let (:params) { { :ensure => 'absent' } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_file('filter_sunappserver_gc').with(
           :ensure => 'absent',
@@ -48,7 +48,7 @@ describe "syslogng::config::filter" do
           :expression => 'host(example1);'
         )}
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_file('filter_sunappserver_gc').with(
           :ensure  => 'file',
@@ -64,7 +64,7 @@ describe "syslogng::config::filter" do
       context 'with expression => "$HOST$PID" eq "$HOST"' do
         let (:params) { { :expression => '"$HOST$PID" eq "$HOST";' } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { pending('Awaiting rspec-puppet 0.2.0'); should contain_file('filter_sunappserver_gc').with(
           :ensure  => 'file',

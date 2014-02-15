@@ -48,7 +48,7 @@ describe 'syslogng::config::log' do
       context 'with ensure => absent' do
         let (:params) { { :ensure => 'absent' } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_file('log_httpd_access_log').with(
           :ensure => 'absent',
@@ -74,7 +74,7 @@ describe 'syslogng::config::log' do
             :destination => 'httpd_access_log'
           )}
 
-          it { should include_class('syslogng::params') }
+          it { should contain_class('syslogng::params') }
 
           it { should contain_syslogng__config__source('network').with(
             :before => 'Syslogng::Config::Log[httpd_access_log]'
@@ -144,7 +144,7 @@ describe 'syslogng::config::log' do
             "syslogng::config::destination { httpd_access_log: configuration => 'file(\"/var/log/httpd_access_log\");' }",
           ] }
 
-          it { should include_class('syslogng::params') }
+          it { should contain_class('syslogng::params') }
 
           it { should contain_syslogng__config__source('network').with(
             :before => 'Syslogng::Config::Log[httpd_access_log]'

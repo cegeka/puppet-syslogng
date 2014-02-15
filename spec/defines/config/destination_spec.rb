@@ -32,7 +32,7 @@ describe 'syslogng::config::destination' do
       context 'with ensure => absent' do
         let (:params) { { :ensure => 'absent' } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_file('destination_httpd_access_log').with(
           :ensure => 'absent',
@@ -43,7 +43,7 @@ describe 'syslogng::config::destination' do
       context 'with default parameters' do
         let (:params) { { :configuration => 'file("/var/log/httpd_access.log");' } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_syslogng__config__destination('httpd_access_log').with(
           :configuration => 'file("/var/log/httpd_access.log");',
@@ -66,7 +66,7 @@ describe 'syslogng::config::destination' do
           :configuration => 'program("/bin/script template("<$PRI>$DATE $MSG\n") flags(no_multi_line));'
         } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { pending('Awaiting rspec-puppet 0.2.0'); should contain_file('destination_httpd_access_log').with(
           :ensure  => 'file',

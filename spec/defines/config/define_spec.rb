@@ -11,7 +11,7 @@ describe 'syslogng::config::define' do
         :osfamily => 'RedHat'
       } }
 
-      it { should include_class('syslogng::params') }
+      it { should contain_class('syslogng::params') }
 
       it { should contain_file('syslogng/define/foo.inc').with(
         :ensure => 'file',

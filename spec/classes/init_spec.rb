@@ -38,7 +38,7 @@ describe 'syslogng' do
     context 'with default parameters' do
       let (:params) { { } }
 
-      it { should include_class('syslogng::params') }
+      it { should contain_class('syslogng::params') }
 
       it { should contain_class('syslogng').with_version('present') }
       it { should contain_class('syslogng').with_service_state('running') }

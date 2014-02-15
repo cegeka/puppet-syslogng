@@ -20,7 +20,7 @@ describe 'syslogng::package' do
   context 'with version => present' do
     let (:params) { { :version => 'present' } }
 
-    it { should include_class('syslogng::params') }
+    it { should contain_class('syslogng::params') }
 
     it { should contain_package('syslog-ng').with_ensure('present') }
     it { should contain_package('syslog-ng-libdbi').with_ensure('present') }

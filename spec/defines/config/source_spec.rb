@@ -32,7 +32,7 @@ describe 'syslogng::config::source' do
       context 'with ensure => absent' do
         let (:params) { { :ensure => 'absent' } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_file('source_sunappserver_server_log').with(
           :ensure => 'absent',
@@ -43,7 +43,7 @@ describe 'syslogng::config::source' do
       context 'with default parameters' do
         let (:params) { { :configuration => 'file("/var/log/sunappserver.log");' } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_syslogng__config__source('sunappserver_server_log').with(
           :configuration => 'file("/var/log/sunappserver.log");',
@@ -66,7 +66,7 @@ describe 'syslogng::config::source' do
           :configuration => 'pipe("/var/run/sunappserver_server.pipe" flags(no-parse) optional(yes));'
         } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_file('source_sunappserver_server_log').with(
           :ensure  => 'file',
