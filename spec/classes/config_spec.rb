@@ -7,7 +7,7 @@ describe 'syslogng::config' do
     :osfamily => 'RedHat'
   } }
 
-  it { should include_class('syslogng::params') }
+  it { should contain_class('syslogng::params') }
   it { should contain_file('syslog-ng/config').with_ensure('file') }
   it { should contain_file('syslog-ng/config').with_owner('root') }
   it { should contain_file('syslog-ng/config').with_group('root') }

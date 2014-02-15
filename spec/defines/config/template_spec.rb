@@ -32,7 +32,7 @@ describe 'syslogng::config::template' do
       context 'with ensure => absent' do
         let (:params) { { :ensure => 'absent' } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_file('template_filetemplate').with(
           :ensure => 'absent',
@@ -77,7 +77,7 @@ describe 'syslogng::config::template' do
           :escape     => true
         } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { should contain_file('template_filetemplate').with(
           :ensure  => 'file',
@@ -96,7 +96,7 @@ describe 'syslogng::config::template' do
           :escape     => true
         } }
 
-        it { should include_class('syslogng::params') }
+        it { should contain_class('syslogng::params') }
 
         it { pending('Awaiting rspec-puppet 0.2.0'); should contain_file('template_filetemplate').with(
           :ensure  => 'file',

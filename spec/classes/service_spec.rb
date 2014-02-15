@@ -28,7 +28,7 @@ describe 'syslogng::service' do
   context 'with ensure => running and enable => true' do
     let (:params) { { :ensure => 'running', :enable => true } }
 
-    it { should include_class 'syslogng::params' }
+    it { should contain_class 'syslogng::params' }
 
     it { should contain_service('syslog-ng').with_ensure('running') }
     it { should contain_service('syslog-ng').with_name('syslog-ng') }
@@ -39,7 +39,7 @@ describe 'syslogng::service' do
   context 'with ensure => stopped and enable => false' do
     let (:params) { { :ensure => 'stopped', :enable => false } }
 
-    it { should include_class 'syslogng::params' }
+    it { should contain_class 'syslogng::params' }
 
     it { should contain_service('syslog-ng').with_ensure('stopped') }
     it { should contain_service('syslog-ng').with_name('syslog-ng') }
