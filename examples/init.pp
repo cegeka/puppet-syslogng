@@ -11,7 +11,9 @@ syslogng::config::source { 'pipe_sunappserver_server':
 }
 
 syslogng::config::template { 'sunappserver_server':
+  # lint:ignore:single_quote_string_with_variables
   expression => 'sunappserver_server ${MSG}\n',
+  # lint:endignore
 }
 
 syslogng::config::destination { 'd_amqp_syslog':
