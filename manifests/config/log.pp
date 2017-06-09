@@ -4,6 +4,7 @@ define syslogng::config::log (
   $destination = undef,
   $parser      = undef,
   $filter      = undef,
+  $rewrite     = undef,
   $flags       = []
 ) {
   case $ensure {

@@ -67,4 +67,10 @@ class syslogng::config ($options = []) {
     path   => "${syslogng::params::conf_dir}/includes/log",
     mode   => '0755'
   }
+
+  file { 'syslog-ng/rewrite' :
+    ensure => directory,
+    path   => "${syslogng::params::conf_dir}/includes/rewrite",
+    mode   => '0755'
+  }
 }
