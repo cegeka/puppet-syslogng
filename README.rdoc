@@ -1,5 +1,5 @@
 = puppet-syslogng module
 
-{<img src='https://codex.cegeka.be/jenkins/job/puppet-syslogng/badge/icon' />}[https://codex.cegeka.be/jenkins/job/puppet-syslogng/]
+{<img src='https://jenkins-iac.cegeka.be/job/puppet-syslogng/badge/icon' />}[https://jenkins-iac.cegeka.be/job/puppet-syslogng/]
 
 This is the syslogng module.
