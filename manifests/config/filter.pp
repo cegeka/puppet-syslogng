@@ -1,5 +1,6 @@
 define syslogng::config::filter (
-  $ensure     = 'present',
+  $ensure = 'present',
+  $replace = true,
   $expression = undef
 )
 {
@@ -21,6 +22,7 @@ define syslogng::config::filter (
           owner   => $syslogng::params::user,
           group   => $syslogng::params::group,
           mode    => '0644',
+          replace => $replace,
           path    => "${syslogng::params::conf_dir}/includes/filter/${title}.inc",
           notify  => Class['syslogng::service'],
           content => template('syslogng/config/filter.erb')

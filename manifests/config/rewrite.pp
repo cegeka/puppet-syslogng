@@ -1,5 +1,6 @@
 define syslogng::config::rewrite(
-  $ensure     = 'present',
+  $ensure = 'present',
+  $replace = true,
   $expression = undef
 )
 {
@@ -22,6 +23,7 @@ define syslogng::config::rewrite(
           group   => $syslogng::params::group,
           mode    => '0644',
           path    => "${syslogng::params::conf_dir}/includes/rewrite/${title}.inc",
+          replace => $replace,
           notify  => Class['syslogng::service'],
           content => template('syslogng/config/rewrite.erb')
         }
