@@ -1,0 +1,21 @@
+# File managed by puppet
+@version:3.23
+# syslog-ng configuration file.
+#
+options {
+  create_dirs(yes);
+  dir_perm(0755);
+<% @options.each do |option| -%>
+  <%= option %>;
+<% end -%>
+};
+
+@include "includes"
+@include "includes/define"
+@include "includes/source"
+@include "includes/parser"
+@include "includes/filter"
+@include "includes/rewrite"
+@include "includes/template"
+@include "includes/destination"
+@include "includes/log"

@@ -11,7 +11,7 @@ class syslogng::config ($options = []) {
     ensure  => file,
     path    => "${syslogng::params::conf_dir}/${syslogng::params::conf_file}",
     mode    => '0644',
-    content => template('syslogng/syslog-ng.conf.erb')
+    content => template("syslogng/${syslogng::params::config_template}")
   }
 
   file { 'syslog-ng/serviceconf' :

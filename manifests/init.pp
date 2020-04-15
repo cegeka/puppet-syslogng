@@ -11,12 +11,11 @@
 # Sample Usage:
 #
 class syslogng (
-                $version       = 'present',
-                $enable        = true,
-                $service_state = 'running',
-                $options       = []
-              )
-{
+  $version       = 'present',
+  $enable        = true,
+  $service_state = 'running',
+  $options       = []
+) {
   case $version {
     'present', 'latest': { $version_real = $version }
     default:             { fail('Class[syslogng]: parameter version must be present or latest') }
