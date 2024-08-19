@@ -1,6 +1,6 @@
 class syslogng::params {
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       $user              = 'root'
       $group             = 'root'
@@ -10,7 +10,7 @@ class syslogng::params {
       $conf_dir          = '/etc/syslog-ng'
       $conf_file         = 'syslog-ng.conf'
       $sysconf_dir       = '/etc/sysconfig'
-      case $::operatingsystemmajrelease {
+      case $facts['os']['release']['major'] {
         '6': { $config_template = 'syslog-ng.conf-el6.erb' }
         '7': { $config_template = 'syslog-ng.conf-el7.erb' }
         '8': { $config_template = 'syslog-ng.conf-el8.erb' }
@@ -18,7 +18,7 @@ class syslogng::params {
       }
     }
     default: {
-      fail("Class[syslogng::params]: osfamily ${::osfamily} is not supported")
+      fail("Class[syslogng::params]: osfamily ${facts['os']['family']} is not supported")
     }
   }
 }

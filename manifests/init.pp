@@ -31,7 +31,7 @@ class syslogng (
     default:     { fail('Class[syslogng]: parameter service_state must be running or stopped') }
   }
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       include syslogng::params
 
@@ -51,7 +51,7 @@ class syslogng (
       Class['syslogng::service'] -> Class['syslogng']
     }
     default: {
-      fail("Class['syslogng']: osfamily ${::osfamily} is not supported")
+      fail("Class['syslogng']: osfamily ${facts['os']['family']} is not supported")
     }
   }
 }
