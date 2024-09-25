@@ -17,8 +17,10 @@ class syslogng::params {
         '8': { $config_template = 'syslog-ng.conf-el8.erb'
           $package         = ['syslog-ng', 'syslog-ng-libdbi'] }
         '9': { $config_template = 'syslog-ng.conf-el9.erb'
-          $package         = 'syslog-ng'}
-        default: {}
+          $package         = 'syslog-ng' }
+        default: {
+          warning("RHEL ${facts['os']['release']['major']} is an unsupported OS version")
+        }
       }
     }
     default: {
