@@ -1,3 +1,5 @@
+#  class syslogng::params
+#
 class syslogng::params {
 
   case $facts['os']['family'] {
@@ -11,11 +13,11 @@ class syslogng::params {
       $sysconf_dir       = '/etc/sysconfig'
       case $facts['os']['release']['major'] {
         '7': { $config_template = 'syslog-ng.conf-el7.erb'
-               $package         = ['syslog-ng', 'syslog-ng-libdbi'] }
+          $package         = ['syslog-ng', 'syslog-ng-libdbi'] }
         '8': { $config_template = 'syslog-ng.conf-el8.erb'
-               $package         = ['syslog-ng', 'syslog-ng-libdbi'] }
+          $package         = ['syslog-ng', 'syslog-ng-libdbi'] }
         '9': { $config_template = 'syslog-ng.conf-el9.erb'
-               $package         = 'syslog-ng'}
+          $package         = 'syslog-ng'}
         default: {}
       }
     }
